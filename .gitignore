@@ -1,49 +1,176 @@
-# History files
-.Rhistory
-.Rapp.history
+install.packages("tidyverse") 
+install.packages("lmtest")
+install.packages("broom")
+install.packages("ggplot2")
 
-# Session Data files
-.RData
-.RDataTmp
+library(tidyverse)
+library(lmtest)
+library(broom)
+library(ggplot2)
 
-# User-specific files
-.Ruserdata
+> library(readxl)
+> HIGH_PE_portfolio <- read_excel((private)HIGH_PE_portfolio.xlsx")
+> View(HIGH_PE_portfolio)
+> library(readxl)
+> HIGH_EV_EBIT_portfolio <- read_excel((private)HIGH_EV_EBIT_portfolio.xlsx")
+> View(HIGH_EV_EBIT_portfolio)
+> library(readxl)
+> HIGH_PB_portfolio <- read_excel((private)HIGH_PB_portfolio.xlsx")
+> View(HIGH_PB_portfolio)
+> library(readxl)
+> LOW_PB_portfolio <- read_excel((private)LOW_PB_portfolio.xlsx")
+> View(LOW_PB_portfolio)
+> library(readxl)
+> LOW_EV_EBIT_portfolio <- read_excel((private)LOW_EV_EBIT_portfolio.xlsx")
+> View(LOW_EV_EBIT_portfolio)
+> library(readxl)
+> HIGH_EPS_portfolio <- read_excel((private)HIGH_EPS_portfolio.xlsx")
+> View(HIGH_EPS_portfolio)
+> library(readxl)
+> LOW_PE_portfolio <- read_excel((private)LOW_PE_portfolio.xlsx")
+> capm_model_HIGH_EPS <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_EPS_portfolio)
+> capm_model_HIGH_EV_EBIT <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_EV_EBIT_portfolio)
+> capm_model_HIGH_PB <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_PB_portfolio)
+> capm_model_HIGH_PE <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_PE_portfolio)
+> capm_model_LOW_PB <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_PB_portfolio)
+> capm_model_LOW_PE <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_PE_portfolio)
+> capm_model_LOW_EV_EBIT <- lm(ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_EV_EBIT_portfolio)
+> summary(capm_model_HIGH_EPS)
 
-# Example code in package build process
-*-Ex.R
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_EPS_portfolio)
 
-# Output files from R CMD build
-/*.tar.gz
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.8283 -0.4972 -0.0487  0.4770  6.7361 
 
-# Output files from R CMD check
-/*.Rcheck/
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.04866    0.01944   2.504   0.0124 *  
+ExcessBenchmarkReturn  1.08378    0.01085  99.877   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# RStudio files
-.Rproj.user/
+Residual standard error: 1.003 on 2661 degrees of freedom
+Multiple R-squared:  0.7894,	Adjusted R-squared:  0.7893 
+F-statistic:  9975 on 1 and 2661 DF,  p-value: < 2.2e-16
 
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
+> summary(capm_model_HIGH_EV_EBIT)
 
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_EV_EBIT_portfolio)
 
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-7.0192 -0.4079  0.0109  0.4260  9.4188 
 
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           -0.01085    0.01812  -0.599    0.549    
+ExcessBenchmarkReturn  0.64473    0.01012  63.737   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-# R Environment Variables
-.Renviron
+Residual standard error: 0.9348 on 2661 degrees of freedom
+Multiple R-squared:  0.6042,	Adjusted R-squared:  0.6041 
+F-statistic:  4062 on 1 and 2661 DF,  p-value: < 2.2e-16
 
-# pkgdown site
-docs/
+> summary(capm_model_HIGH_PB)
 
-# translation temp files
-po/*~
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_PB_portfolio)
 
-# RStudio Connect folder
-rsconnect/
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.1702  -0.6178  -0.0214   0.6096  12.1726 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.02138    0.02767   0.773     0.44    
+ExcessBenchmarkReturn  0.91940    0.01545  59.506   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.428 on 2661 degrees of freedom
+Multiple R-squared:  0.5709,	Adjusted R-squared:  0.5708 
+F-statistic:  3541 on 1 and 2661 DF,  p-value: < 2.2e-16
+
+> summary(capm_model_HIGH_PE)
+
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = HIGH_PE_portfolio)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.3089  -0.5225  -0.0135   0.5218   5.7440 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.01355    0.02249   0.602    0.547    
+ExcessBenchmarkReturn  0.86375    0.01255  68.799   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.16 on 2661 degrees of freedom
+Multiple R-squared:  0.6401,	Adjusted R-squared:   0.64 
+F-statistic:  4733 on 1 and 2661 DF,  p-value: < 2.2e-16
+
+> summary(capm_model_LOW_EV_EBIT)
+
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_EV_EBIT_portfolio)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.6576  -0.6350  -0.0555   0.6207   9.1887 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.06706    0.02815   2.382   0.0173 *  
+ExcessBenchmarkReturn  1.23192    0.01572  78.386   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.452 on 2661 degrees of freedom
+Multiple R-squared:  0.6978,	Adjusted R-squared:  0.6977 
+F-statistic:  6144 on 1 and 2661 DF,  p-value: < 2.2e-16
+
+> summary(capm_model_LOW_PB)
+
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_PB_portfolio)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.3465 -0.5881 -0.0124  0.5343 11.9005 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.01236    0.02422    0.51     0.61    
+ExcessBenchmarkReturn  0.67914    0.01352   50.23   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.25 on 2661 degrees of freedom
+Multiple R-squared:  0.4867,	Adjusted R-squared:  0.4865 
+F-statistic:  2523 on 1 and 2661 DF,  p-value: < 2.2e-16
+
+> summary(capm_model_LOW_PE)
+
+Call:
+lm(formula = ExcessPortfolioReturn ~ ExcessBenchmarkReturn, data = LOW_PE_portfolio)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.5742  -0.7713  -0.0780   0.7331  10.6331 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)            0.07799    0.03126   2.495   0.0127 *  
+ExcessBenchmarkReturn  1.19405    0.01745  68.416   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.613 on 2661 degrees of freedom
+Multiple R-squared:  0.6376,	Adjusted R-squared:  0.6374 
+F-statistic:  4681 on 1 and 2661 DF,  p-value: < 2.2e-16
